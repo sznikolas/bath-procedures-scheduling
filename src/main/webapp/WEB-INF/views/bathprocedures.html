@@ -1,0 +1,235 @@
+<!-- bathprocedures.html -->
+<!-- Elerheto furdoprocedurak listaja, amit hozzarendelunk a pacienshez -->
+
+<div class="container" th:fragment="content" style="width:80%">
+	<!-- Procedura hozzarendelese a pacienshez	 -->
+	<form method="post" th:action="@{/bathprocedures/submit/}" action="#">
+	
+	<br/>
+	<!-- Paciens alap adatai -->
+	<div class="row justify-content-md-center" th:each="patient : ${patients}">
+			<div class="col-sm-8 border border-primary shadow rounded pt-2">
+				<!-- include image from static resources -->
+	        	<div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+					<h1 align="center"><p th:text="#{procedures.bathproceduresRegistration}"> Bathprocedures registration </p></h1>
+						<br/>
+						<div class="form-row">
+							    <div class="form-group col-md-6">
+							      <label th:text="#{patient.name}">Name</label>
+							      <input type="text" class="form-control" th:name="patName" th:value="${patient.patName}" th:placeholder="#{patient.name}" readonly>
+							    </div>
+							    
+							    <div class="form-group col-md-6">
+							      <label th:text="#{patient.surname}">Surname</label>
+							      <input type="text" class="form-control" th:name="patSurname" th:value="${patient.patSurname}" th:placeholder="#{patient.surname}" readonly>
+							    </div>
+							    
+							    <div class="form-row col-md-12">
+								    <div class="form-group col-md-4">
+							      		<label th:text="#{patient.idNumber}">ID number</label>
+							      		<input type="number" class="form-control" th:name="patIdNumber" th:value="${patient.patIdNumber}" th:placeholder="#{patient.idNumber}" readonly>
+							   		</div>
+								    
+								    <div class="form-group col-md-4">
+							      		<label th:text="#{patient.birthDate}">Birth Date</label>
+							      		<input type="text" class="form-control" th:name="patBirthDate" th:value="${patient.patBirthDate}" th:placeholder="#{patient.birthDate}" readonly>
+							    	</div>
+							    	
+							    	<div class="form-group col-md-4">
+							      		<label th:text="#{patient.mobility}">Mobility</label>
+							      		<input type="text" class="form-control" th:name="patMobility" th:value="${patient.patMobility}" readonly>		
+									</div>
+								</div>
+								
+							    <div class="form-group col-md-12">
+							      <label th:text="#{patient.comment}">Comment</label>
+							      <input type="text" class="form-control" th:name="patComment" rows="5" th:value="${patient.patComment}" th:placeholder="#{patient.comment}" readonly> 
+							    </div>
+							    <br/>
+						</div>
+			</div>
+		</div>
+	
+		<br/>
+		<br/>
+	
+	<div class="row justify-content-md-center">
+
+		<h3 align="center"><p th:text="#{procedures.listOfAvailableProcedures}"> Jelentkezes az elerheto furdoprocedurakra </p></h3>
+		
+		
+
+	
+		<!-- Procedurak kivalasztasa es regisztralasa -->
+		<table class="table table-striped table-light">
+			<thead class="table-primary">
+				<tr>
+					<th scope="col" style="width: 40%;" th:text="#{procedures.name}">Procedures Name</th>
+					<th scope="col" style="width: 20%;" th:text="#{procedures.recommendedParticipation}">Recommended Participation</th>
+					<th scope="col" style="width: 25%;" th:text="#{procedures.startDate}">Procedures Start Date</th>
+					<th scope="col" style="width: 15%;" th:text="#{button.add}">BUTTON: Add</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td >
+						<select type="text" class="form-control" th:name="idProcedures" required>
+							<option value="1" th:text="#{proceduresName.medicalMassage}" selected></option>
+							<option value="2" th:text="#{proceduresName.mudPacks}"></option>
+							<option value="3" th:text="#{proceduresName.carbonedBath}"></option>
+							<option value="4" th:text="#{proceduresName.thermalBath}"></option>
+							<option value="5" th:text="#{proceduresName.spaWithMedicinalWater}"></option>
+							<option value="6" th:text="#{proceduresName.weightBath}"></option>
+							<option value="7" th:text="#{proceduresName.underwaterJetMassage}"></option>
+							<option value="8" th:text="#{proceduresName.compartmentGalvanized}"></option>
+							<option value="9" th:text="#{proceduresName.phyaction}"></option>
+							<option value="10" th:text="#{proceduresName.interference}"></option>
+							<option value="11" th:text="#{proceduresName.iontophoresis}"></option>
+							<option value="12" th:text="#{proceduresName.bioptron}"></option>
+							<option value="13" th:text="#{proceduresName.saltCave}"></option>
+						</select>
+					</td>
+					
+					
+					<td>
+						<select class="form-control" id="recommendedParticipation" th:name="recommendedParticipation" required>
+<!-- 						  <option selected value="0"> 0 </option> -->
+						  <option selected value="1"> 1 </option>
+						  <option value="2"> 2 </option>
+						  <option value="3"> 3 </option>
+						  <option value="4"> 4 </option>
+						  <option value="5"> 5 </option>
+						  <option value="6"> 6 </option>
+						  <option value="7"> 7 </option>
+						  <option value="8"> 8 </option>
+						  <option value="9"> 9 </option>
+						  <option value="10"> 10 </option>
+						</select>
+					</td>
+					
+					<td>
+						<input type="text" id="datepickerProcedures" class="form-control" th:name="startOfProcedure" th:placeholder="#{procedures.startDate}" required>
+					</td>
+					
+					
+					
+					<!-- BUTTON: Submit (jelentkezes) -->
+					<td>
+						<button type="submit" class="btn btn-outline-primary" th:title="#{button.procedureTimeAdded}">
+							<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"> </span>
+						</button>                                 
+					</td>
+					
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>		
+</form>		
+		<br/>
+		<br/>
+		<br/>
+
+		
+		
+	<div class="row justify-content-md-center">
+
+		<h3 align="center"><p th:text="#{procedures.soFarRegBathProc}"> Paciens reszere eddig lefoglalt furdo procedurak </p></h3>
+		
+		
+
+	
+		<!-- Ebbe a tablaba irja ki az ezidaig regisztralt procedurakat -->
+		<table class="table table-striped table-light">
+			<thead class="table-primary">
+				<tr>
+<!-- 					<th scope="col"  th:text="#{patient.name}">Patient Name</th> -->
+<!-- 					<th scope="col"  th:text="#{patient.surname}">Patient Surname</th> -->
+					<th scope="col"  th:text="#{procedures.name}">Procedures Name</th>
+					<th scope="col"  th:text="#{procedures.section}">Procedures Section</th>
+					<th scope="col"  th:text="#{procedures.room}">Procedures Room</th>
+					<th scope="col"  th:text="#{procedures.capacity}">Procedures Capacity</th>
+					<th scope="col"  th:text="#{procedures.treatmentTime}">Procedures Treatment Time</th>
+					<th scope="col"  th:text="#{procedures.recommendedParticipation}">Recommended Participation</th>
+					<th scope="col"  th:text="#{procedures.startDate}">Procedures Start Date</th>
+					<th scope="col"  th:text="#{button.delete}">BUTTON: Delete</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+					<tr th:each="procBooking : ${procBookings}">
+<!-- 						<td th:text="${procBooking.patIdNumber}">Patient Name</td> -->
+<!-- 						<td th:text="${procBooking.patSurname}">Patient Surname</td> -->
+						<td th:text="${procBooking.procName}">Procedure Name</td>
+						<td th:text="${procBooking.procSection}">Procedure Section</td>
+						<td th:text="${procBooking.procRoom}">Procedure Room</td>
+						<td th:text="${procBooking.procCapacity}">Procedure Capacity</td>
+						<td th:text="${procBooking.procTime}">Procedure Time</td>
+						<td th:text="${procBooking.attendanceNumber}">Recommended participation</td>
+						<td th:text="${procBooking.startOfProcedure}">Start of procedure</td>
+					
+
+						
+						<td>
+							<!-- BUTTON: Remove booked procedure -->
+							<form action="#" th:action="@{/bathprocedures/deletebooking/{id}(id=${procBooking.idProceduresBooking})}" method="get">
+								<input hidden type="text" name="patIdNumber" th:value="${procBooking.patIdNumber}"/>
+								<button data-confirm="Biztosan törölni akarod a páciens részére lefoglalt procedúrát?" type="submit" class="btn btn-outline-primary" th:title="#{button.procedureTimeAdded}">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true" > </span>
+								</button>
+							</form>                                  
+						</td>
+	
+					</tr>
+				</tbody>
+		</table>
+	</div>	
+	
+	
+	<br/>
+		
+		<!-- BUTTON: Generating Timetable -->
+		<div class="row justify-content-md-center" align="center" th:each="patient : ${patients}">	
+			<div class="btn-form-row col-md-4">
+				<form action="#" th:action="@{/bathprocedures/timetable}" method="get">
+					<input hidden type="text" th:name="patIdNumber" th:value="${patient.patIdNumber}"/>
+					<button type="submit" data-confirm="Megerősítés után a procedúrákat már nem lehet törölni!" class="btn btn-outline-primary col-md-8" th:text="#{button.generatingTimetable}" th:title="#{buttontitle.generatingTimetable}"> Button: Timetable </button>
+				</form>
+			</div>
+		</div>
+
+
+	
+	<br/>
+	<br/>
+	<br/>
+	
+	
+	<!-- Javascript -->
+	<script th:inline="javascript">
+
+// 	$(document).on('submit', 'form[data-confirm]', function(e){
+// 	    if(!confirm($(this).data('confirm'))){
+// 	    	e.stopImmediatePropagation();
+// 	      e.preventDefault();
+// 			}
+// 	});
+	
+	
+	
+	$(document).on('click', ':not(form)[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	      e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+
+	
+	
+	</script>	
+	
+</div>
+
+
+

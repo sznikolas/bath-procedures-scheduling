@@ -1,0 +1,80 @@
+<!-- admin.html -->
+<!-- Admin interfesz, kiirja az osszes regisztralt doktort az adminon kivul es lehetove teszi a doktorok torleset-->
+
+<div class="container-fluid" th:fragment="content" align="left" style="width:80%">
+	
+	<h2 align="left"><p th:text="#{button.adminInterface}"> Admin interface </p></h2>
+		
+		<!-- Info (button) -->
+<!-- 		<div align="left"> -->
+<!-- 			<button type="button" class="btn btn-outline-primary rowsMargin rounded-circle" onclick="togleInfoTab();" th:title="#{button.showTips}"> -->
+<!-- 					<span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span> -->
+<!-- 			</button> -->
+<!-- 		</div>			 -->
+		
+		<!-- Info (felugro ablak) -->
+<!-- 		<div class="p-3 border rounded bg-light table" role="alert" style="display:none;" id="infoTab"> -->
+<!-- 			<label th:text="#{label.notice1}"></label> -->
+<!-- 				<p> -->
+<!-- 					<li th:text="#{label.notice2}"></li> -->
+<!-- 					<li th:text="#{label.notice8}"></li> -->
+<!-- 					<li th:text="#{label.notice3}"></li> -->
+<!-- 				</p> -->
+<!-- 		</div> -->
+	
+
+			<!-- List of all registered user (dortors and nurses) -->
+			<table id="patTable" class="table table-striped table-light">
+				<thead class="table-primary">
+					<tr>
+						<th scope="col" th:text="#{user.name}">First Name</th>
+						<th scope="col" th:text="#{user.surname}">Last Name</th>
+						<th scope="col" th:text="#{user.idNumber}">ID number</th>
+						<th scope="col" th:text="#{user.role}">Role</th>
+						<th scope="col" th:text="#{user.telNumber}">Tel number</th>
+						<th scope="col" th:text="#{user.email}">Email</th>
+						<th scope="col" th:text="#{button.delete}">BUTTON: Delete</th>
+
+					</tr>
+				</thead>
+				<tbody th:each="doctor : ${doctors}">
+					<tr >
+						<td th:text="${doctor.docName}">Name</td>
+						<td th:text="${doctor.docSurname}">Surname</td>
+						<td th:text="${doctor.idDoctor}">ID Number</td>
+						<td th:text="${doctor.docRole}">Role</td>
+						<td th:text="${doctor.docTelNumber}">Tel number</td>
+						<td th:text="${doctor.docEmail}">Email</td>
+
+						<!-- BUTTON: Delete user -->
+						<td>
+							<form action="#" th:action="@{'/delete/' + ${doctor.idDoctor}}" method="get" data-confirm="Felhasználói fiók törlésének megerősítése!">
+								<button type="submit" class="btn btn-outline-primary" th:title="#{button.patientDelete}">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+					</tr>
+				</tbody>
+			</table>
+		
+		
+
+
+
+<!-- Javascript -->
+<script th:inline="javascript">
+
+	//Submit delete button
+	$(document).on('submit', 'form[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	    	e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+
+</script>
+
+
+</div>

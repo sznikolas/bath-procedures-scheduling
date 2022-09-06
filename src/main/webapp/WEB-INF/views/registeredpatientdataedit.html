@@ -1,0 +1,118 @@
+<!-- registeredpatientdataedit.html -->
+<!-- Paciens adatainak modositasa -->
+
+	<div class="container-fluid" th:fragment="content" align="left" style="width:80%" >
+		<div class="row justify-content-md-center">
+			<div class="col-sm-8 border border-primary shadow rounded pt-2">
+			
+				<!-- include image from static resources -->
+	        	<div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+	        	
+				<h1 align="center"><p th:text="#{procedures.patientData}"> Paciens adatai</p></h1>
+				<br/>
+						
+				<form action="#" th:action="@{/registeredpatientdataedit}"  th:object="${patientEntity}" method="POST">
+					<div class="form-row">
+						   
+						   <div class="form-group col-md-6" style="display: none;">
+						      <label th:text="#{patient.name}">Patient ID</label>
+						      <input type="text" class="form-control" th:name="idPatient" th:field="*{idPatient}" th:placeholder="#{patient.name}">
+						    </div>
+						   
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.name}">Name</label>
+						      <input type="text" class="form-control" th:name="patName" th:field="*{patName}" th:placeholder="#{patient.name}">
+						    </div>
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.surname}">Surname</label>
+						      <input type="text" class="form-control" th:name="patSurname" th:field="*{patSurname}" th:placeholder="#{patient.surname}">
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.idNumber}">ID number</label>
+						      <input type="number" class="form-control" th:name="patIdNumber" th:field="*{patIdNumber}" th:placeholder="#{patient.idNumber}" readonly>
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.birthDate}">Birth Date</label>
+						      <input type="text" class="form-control" id="datepickerBirthDate" th:name="patBirthDate" th:field="*{patBirthDate}" th:placeholder="#{patient.birthDate}">
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label for="inputEmail4" th:text="#{patient.email}">E-mail</label>
+						      <input type="email" class="form-control" th:name="patEmail" th:field="*{patEmail}" th:placeholder="#{patient.email}">
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.telNumber}">Telephone number</label>
+						      <input type="text" class="form-control" th:name="patTelNumber" th:field="*{patTelNumber}" th:placeholder="#{patient.telNumber}">
+						    </div>
+
+						    <div class="form-group col-md-6">
+						      <label for="inputAddress" th:text="#{patient.residence}">Residence - Lakhely</label>
+						      <input type="text" class="form-control" th:name="patResidence" th:field="*{patResidence}" th:placeholder="#{patient.residence}">
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label for="inputAddress" th:text="#{patient.street}">Street</label>
+						      <input type="text" class="form-control" th:name="patStreet" th:field="*{patStreet}" th:placeholder="#{patient.street}">
+						    </div>
+
+						   	<div class="form-row col-md-12">
+							    <div class="form-group col-md-4">
+							      <label for="inputAddress" th:text="#{patient.houseNumber}">House Number</label>
+							      <input type="text" class="form-control" th:name="patHouseNumber" th:field="*{patHouseNumber}" th:placeholder="#{patient.houseNumber}">
+							    </div>
+							    
+							    <div class="form-group col-md-4">
+							      <label for="inputAddress" th:text="#{patient.zipCode}">Zip Code</label>
+							      <input type="text" class="form-control" th:name="patZipCode" th:field="*{patZipCode}" th:placeholder="#{patient.zipCode}">
+							    </div>
+					 			
+					 			<div class="form-group col-md-4">
+							      <label th:text="#{patient.mobility}">Mobility</label>
+							      	<select type="text" class="form-control" th:field="*{patMobility}" th:name="patMobility" required>
+											<option value="Normális" th:text="#{patMobility.normal}">Normal</option>
+											<option value="Korlátozott" th:text="#{patMobility.limited}">Limited</option>
+									</select>
+							    </div>
+						    </div>	   
+
+						    <div class="form-group col-md-12">
+						      <label th:text="#{patient.comment}">Comment</label>
+						      <input type="text" class="form-control" th:name="patComment" th:field="*{patComment}" rows="5" th:placeholder="#{patient.comment}"> 
+						    </div>
+					</div>
+					
+					<br/>
+					
+					<!-- BUTTON: Save -->
+					<div class="row justify-content-md-center" align="center">	
+						<div class="btn-form-row col-md-4">
+							   	<button type="submit" name="updatePatient" class="btn btn-outline-primary col-md-8" th:text="#{button.save}"> Button: Save </button>
+						</div>
+					</div>	
+					
+					</form>
+					<br/>
+					
+					
+			</div>
+		</div>
+		    
+		  
+		  
+		  
+		    
+<!-- Javascript -->
+<script th:inline="javascript">
+		
+</script>
+	    
+</div>
+	
+	
+	
+	
+	
+	

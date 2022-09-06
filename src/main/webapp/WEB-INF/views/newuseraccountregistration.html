@@ -1,0 +1,103 @@
+<!-- newuseraccountregistration.html -->
+<!-- Regisztracios oldal -->
+
+
+<div class="container" th:fragment="content">
+
+<!-- 	<br/> -->
+<!-- 	<h1 class="h3 mb-3 font-weight-normal form-center" th:text="#{newaccount.registerText}" >Kerjuk adja meg a pontos adatait</h1> -->
+<!-- 	<br/> -->
+
+	<div class="container mt-2 mb-4">
+	    <div class="row justify-content-md-center">
+	        <div class="col-sm-4 border border-primary shadow rounded pt-2">
+	        	<!-- include image from static resources -->
+	            <div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+	            <div class="col-sm-12">
+	                <form name="newuseraccountregistration" th:action="@{/reg?succesfulRegistration}" th:object="${doctorEntity}" method="post" id="singnupFrom" onSubmit="return validation();">
+	
+	                    <div class="form-group">
+	                        <label class="font-weight-bold" th:text="#{newaccount.email}"> Email </label>
+	                        <div class="input-group">
+	                            <input type="email" name="email" id="email" th:field="*{docEmail}" class="form-control" th:placeholder="#{newaccount.enterValidEmail}">
+	                            <div class="input-group-append"><button type="button" class="btn btn-primary" onclick="return emailCheck();"><i class="glyphicon glyphicon-envelope"></i></button></div>
+	                       		
+	                        </div>
+	                        <small class="form-text text-muted" th:text="#{newaccount.neverShareEmail}">We'll never share your email with anyone else.</small>
+	                    </div>
+	                    
+	                    <div id="next-form" class="collapse">
+	                        
+	                        <div class="form-group">
+	                            <label class="font-weight-bold" th:text="#{newaccount.password}">Password</label>
+	                            <input type="password" name="password" th:field="*{docLoginCode}" id="password" class="form-control" placeholder="***********" required>
+	                        </div>
+	                        
+	                        <div class="form-group">
+	                            <label class="font-weight-bold" th:text="#{newaccount.confirmPassword}">Confirm Password</label>
+	                            <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="***********" required>
+	                            <em id="cp"></em>
+	                        </div>
+	                        
+	                        <div class="form-group">
+	                            <label class="font-weight-bold" th:text="#{newaccount.name}"> Name </label>
+	                            <input type="text" minlength="3" maxlength="20" name="name" th:field="*{docName}" id="name" class="form-control" th:placeholder="#{newaccount.enterYourNamePlaceholder}" required>
+	                        </div>
+	                        
+	                        <div class="form-group">
+	                            <label class="font-weight-bold" th:text="#{newaccount.surname}"> Surname </label>
+	                            <input type="text" minlength="3" maxlength="20" name="surname" id="surname" th:field="*{docSurname}" class="form-control" th:placeholder="#{newaccount.enterYourSurnamePlaceholder}" required>
+	                        </div>
+	                        
+	                       <div class="form-group">
+								<label class="font-weight-bold" th:text="#{newaccount.role}">Doctor or Nurse</label> 
+								<select type="text" class="form-control" th:field="*{docRole}" th:name="docRole">
+									<option value="Doctor" th:text="#{newaccount.doctor}" selected>Doctor</option>
+									<option value="Nurse" th:text="#{newaccount.nurse}">Nurse</option>
+								</select>
+							</div>
+	                       
+	                        <div class="form-group">
+	                            <label class="font-weight-bold" th:text="#{newaccount.telNumber}"> Phone </label>
+	                            <input type="number" oninput="maxLengthCheck(this)" maxlength="10" name="phone" id="phone" th:field="*{docTelNumber}" class="form-control" th:placeholder="#{newaccount.telNumberPlaceholder}" required>
+	                        </div>
+							
+							<div class="form-group">
+								<small>
+		                            <label>
+		                            	<input type="checkbox" name="condition" id="condition" th:text="#{newaccount.termsAndConditions}" required> 
+		                            </label>
+	                        	</small>
+	                        </div>
+	                        
+	                        
+	                        <!-- BUTTON: Create New Account -->
+	                        <div class="form-group">
+	                            <button type="submit" name="submit" class="btn btn-block btn-outline-primary" th:text="#{button.createAccount}" ></button>
+	                        </div>
+	                        
+	                        <br/>
+	                        
+	                        
+	                        <p align="center">
+								<small> <a href="/login" th:text="#{button.backToLogin}" align="center">Back to login page</a> </small>
+							</p>
+	                        
+	                        
+	                        
+	                    </div> <!--/.next-form-->
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+<!-- Javascript -->
+	<script th:inline="javascript">
+		
+	//$('.datepicker').datepicker();
+	
+		
+	</script>
+
+</div>

@@ -1,0 +1,70 @@
+<!-- balneumthermalmap.html -->
+<!-- Balneum Thermal furdo terkepe es nyomtatasa -->
+
+
+<div class="container" th:fragment="content">
+
+	<br/>
+
+	<!-- IMAGE: Balneum Thermal Park map -->
+	<div id="balneumThermalMap" class="text-center">
+		<img th:src="@{../img/balneummap.jpeg}" style="width:850px;height:600px;"  title="Balneum Thermal Park map" alt="Balneum Thermal Park map"  class=" p-1">
+	</div>
+
+	<br/>
+	
+	<!-- BUTTON: Print Balneum Thermal Park map -->
+<!-- 	<p align="center"> -->
+<!-- 		<small>  -->
+<!-- 			<a href="#" id="print" onclick="VoucherPrint('/img/balneummap.jpeg'); return false;" th:text="#{balneum.printmap}">Nyomtatás</a>  -->
+<!-- 		</small> -->
+<!-- 	</p> -->
+	
+	<p align="center">
+		<small> 
+			<a href="#" id="print" onclick="VoucherPrint('/img/balneummap.jpeg'); return false;" th:text="#{balneum.printmap}">Nyomtatás</a> 
+		</small>
+	</p>
+
+
+
+
+
+<!-- Javascript -->
+<script th:inline="javascript">
+
+	//Print picture
+	 function VoucherSourcetoPrint(source) {
+	  		return "<html><head><script>function step1(){\n" +
+	  				"setTimeout('step2()', 10);}\n" +
+	  				"function step2(){window.print();window.close()}\n" +
+	  				"</scri" + "pt></head><body onload='step1()'>\n" +
+	  				"<img align='center' style='width:700px; height:500px;' src='" + source + "'  /></body></html>";
+	  	}
+
+//-------------------------------------------------------------------------------------------------	 
+	 //Print picture
+	 function VoucherPrint(source) {
+	  		Pagelink = "about:blank";
+	  		var pwa = window.open(Pagelink, "_new");
+	  		pwa.document.open();
+	  		pwa.document.write(VoucherSourcetoPrint(source));
+	  		pwa.document.close();
+	  	}
+	  
+//-------------------------------------------------------------------------------------------------	  
+	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

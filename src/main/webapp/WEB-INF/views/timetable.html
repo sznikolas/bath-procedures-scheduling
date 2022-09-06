@@ -1,0 +1,312 @@
+<!-- timetable.html -->
+<!-- Kigeneralt orarend es a nyomtatasa -->
+
+<div class="container-fluid"  th:fragment="content" align="left" style="width:70%">
+		
+		<!-- Amik ebben a div-ben vannak azokat fogja kinyomtatni -->
+		<div id="div-id-name">
+			
+			<br/>
+		
+			<!-- Title -->
+			<h2 align="center" class="boldthick"><p th:text="#{timetable.managementLicense}"> Management license </p></h2>
+					
+		
+			<!-- Informaciok az orvosrol -->
+			<div align="center">	
+				<table class="table table-striped table-sm table-bordered table-light" style="width:70%" align="left" th:each="doctorData : ${doctorDatas}">
+					<col width="45%">
+		  			<col width="55%">
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{timetable.docName}">Doctor name</th>
+			  			<td class="column" style="text-align: left;" th:text=" 'Dr. ' + ${doctorData.docSurname} + ' ' + ${doctorData.docName}"> Dr. Morvai Ferenc </td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{timetable.dateOfInvestigation}">Date of booking</th>
+			  			<td class="column" style="text-align: left;" th:text="${doctorData.bookingDate}">2020-02-02</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{timetable.locationOfThermalPark}">Location of Thermal Park</th>
+			  			<td class="column" style="text-align: left;">Királyvár, Balneum Thermal Park</td>
+					</tr>
+
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{timetable.startOfProcedures}">Start of procedures</th>
+			  			<td class="column" style="text-align: left;" th:text="${startOfProcDate}">04.04.2020</td>
+					</tr>
+				</table>
+			</div>		
+
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+
+			<!-- Basic patient data -->
+			<div align="left">	
+				<h3 align="left" class="boldthick"><p th:text="#{timetable.basicData}" > Basic patients data </p></h3>
+				
+				<table class="table table-striped table-sm table-bordered table-light" style="width:70%" align="left" th:each="patient : ${patients}">
+					<col width="35%">
+		  			<col width="65%">
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.name}">Patient name</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patName}">Patient name</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.surname}">Patient surname</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patSurname}">Patient surname</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.idNumber}">Patient identification number</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patIdNumber}">Patient identification number</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.birthDate}">Patient birthdate</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patBirthDate}">Patient birthdate</td>
+					</tr>
+		
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.telNumber}">Patient tel number</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patTelNumber}">Patient tel number</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.email}">Patient email</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patEmail}">Patient email</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.residence}">Patient residence</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patResidence}">Patient residence</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.street}">Patient street</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patStreet}">Patient street</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.houseNumber}">Patient housenumber</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patHouseNumber}">Patient housenumber</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.zipCode}">Patient zipcode</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patZipCode}">Patient zipcode</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.mobility}">Mobility</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patMobility}">Limited</td>
+					</tr>
+					
+					<tr align="left">
+			  			<th class="column boldthick" th:text="#{patient.comment}">Patient comment</th>
+			  			<td class="column" style="text-align: left;" th:text="${patient.patComment}">Patient comment</td>
+					</tr>
+				</table>
+			</div>	
+		
+	
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			
+			
+			
+			<!-- Generated time table times -->
+			<div>
+				<h3 align="left" class="boldthick"><p th:text="#{timetable.generatedTimetableTimes}"> Generated timetable times </p></h3>
+			</div>
+			<!-- Timetable -->
+			<table class="table table-striped table-light table-bordered" th:if="${timetableDatas!=null and !#lists.isEmpty(timetableDatas)}">
+				<thead class="table-primary">
+					<tr>
+						<th scope="col"  th:text="#{procedures.name}">Procedures Name</th>
+						<th scope="col"  th:text="#{procedures.participationDate}">Date</th>
+						<th scope="col"  th:text="#{procedures.participationDay}">Day</th>
+						<th scope="col"  th:text="#{procedures.participationHour}">Hour</th>
+						<th scope="col"  th:text="#{procedures.room}">Procedures Room</th>
+						<th scope="col"  th:text="#{procedures.treatmentTime}">Procedures Treatment Time (kezelesi ido h meddig tart a procedura percekben)</th>
+<!-- 						<th scope="col"  th:text="#{button.modify}">Edit</th> -->
+					</tr>
+				</thead>
+				<tbody>
+						<tr th:each="timetableData : ${timetableDatas}">
+							<td th:text="${timetableData.procName}">Procedure Name</td>
+							<td th:text="${timetableData.procParticipationDate}">Procedure Date</td>
+							<td th:text="${timetableData.procParticipationDay}">Procedure Day</td>
+
+							
+							<td >
+								<select type="text" class="form-control" th:name="time">
+									<option th:value="${timetableData.procParticipationHour}" th:text="${timetableData.procParticipationHour}" selected>Automatically generated hour -> sample: 09:00</option>
+									
+<!-- 									<option th:each="times : ${procTimesInThatDay.toString()}" th:value="${times}" th:text="${times}"></option> -->
+									
+									<option value="09:00" text="09:00">09:00</option>
+									<option value="09:30" text="09:30">09:30</option>
+									<option value="10:00" text="10:00">10:00</option>
+									<option value="10:30" text="10:30">10:30</option>
+									<option value="11:00" text="11:00">11:00</option>
+									<option value="13:00" text="13:00">13:00</option>
+									<option value="13:30" text="13:30">13:30</option>
+									<option value="14:00" text="14:00">14:00</option>
+									<option value="14:30" text="14:30">14:30</option>
+									<option value="15:00" text="15:00">15:00</option>
+									<option value="15:30" text="15:30">15:30</option>
+									<option value="16:00" text="16:00">16:00</option>
+								</select>
+							</td>
+							<td th:text="${timetableData.procRoom}">Procedure Room</td>
+							<td th:text="${timetableData.procTime} +' '+ #{procedures.timeMinutes}">Procedures Treatment Time</td>
+							<!-- BUTTON: Edit -->
+<!-- 							<td> -->
+<!-- 								<button type="submit" class="btn btn-outline-primary" th:title="#{buttontitle.procedureTimeEdit}"> -->
+<!-- 									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"> </span> -->
+<!-- 								</button>                                  -->
+<!-- 							</td> -->
+						</tr>
+					</tbody>
+			</table>
+
+
+
+
+
+
+		<!-- Ha nincs meg a pacienshez hozzarendelve procedura -->
+		<div th:unless="${timetableDatas!=null and !#lists.isEmpty(timetableDatas)}" align="center" th:each="patient : ${patients}">	
+			<table class="table table-striped table-danger">
+				<tbody>
+					<tr> 
+						<td th:text="#{label.noAssignedProc}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+			<form target="_blank" action="#" th:action="@{/bathprocedures/}" method="get">
+				<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+				<button class="btn btn-outline-primary col-md-4" type="submit" th:title="#{button.patientAddProcedures}" th:text="#{button.patientAddProcedures}">BUTTON: Add procedures</button>									
+			</form> 
+		</div>
+
+
+			<br/>
+			<br/>
+		
+
+		
+			<!-- Procedures info table -->
+			<div class="p-3 border rounded bg-light table">
+				<label th:text="#{label.notice4}"></label>
+					<ul>
+						<li th:text="#{label.notice6}"></li>
+						<li th:text="#{label.notice7}"></li>
+					</ul>
+			</div>
+		</div>	
+	<br/>
+
+
+
+
+
+	<!-- BUTTON: Printing Timetable -->
+	<div class="row justify-content-md-center" align="center" th:each="patient : ${patients}">	
+		<div class="btn-form-row col-md-4">
+			<form action="#" th:action="@{/bathprocedures/printtimetable/}" method="get">
+				<input hidden type="text" th:name="patIdNumber" th:value="${patient.patIdNumber}"/>
+				<button  class="btn btn-outline-primary col-md-8" id="print" onclick = "javascript:printlayer('div-id-name')" th:text="#{button.registeredProcPrinting}" th:title="#{buttontitle.registeredProcPrinting}"> Button: Printing </button>
+			</form>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<!-- Ez majd kilesz torolve és a felso gomb lesz helyette hasznalva -->
+<!-- 	<p align="center" th:if="${timetableDatas!=null and !#lists.isEmpty(timetableDatas)}"> -->
+<!-- 		<small> <a href="#" id="print" onclick = "javascript:printlayer('div-id-name')" th:text="#{button.registeredProcPrinting}">Nyomtatás</a> </small> -->
+<!-- 	</p> -->
+		
+	
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+
+    
+<!-- Javascript -->
+<script th:inline="javascript">
+
+
+/*
+	$(document).on('submit', 'form[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	    	e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+*/
+	
+	
+//-------------------------------------------------------------------------------------------------	
+	
+	$(document).on('click', ':not(form)[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	      e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+
+//-------------------------------------------------------------------------------------------------	
+
+	//Print the page
+	 function printlayer(layer)
+	  {
+		  var generator=window.open(",'name,");
+		  var layetext = document.getElementById(layer);
+		  generator.document.write(layetext.innerHTML.replace("Print Me"));
+		  
+		  generator.document.close();
+		  generator.print();
+		  generator.close();
+	  }
+	  
+//-------------------------------------------------------------------------------------------------	  
+	
+</script>	
+	 
+
+    
+    
+</div>

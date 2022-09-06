@@ -1,0 +1,6 @@
+<footer th:fragment="footer">
+	<a th:text="#{footer.appName}"> 2020 Bathprocedures </a> <br/>
+	<a th:text="#{footer.welcomeUserText}"> Welcome </a> 
+	<span sec:authentication="name"> Anonymous </span>
+	<a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{header.logout}" > Sing Out </a>
+</footer>

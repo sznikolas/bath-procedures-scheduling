@@ -1,0 +1,241 @@
+<!-- registeredpatient.html -->
+<!-- Regisztralt paciensek kikeresese az adatbazisbol-->
+
+<div class="container-fluid" th:fragment="content" align="left" style="width:80%">
+	
+	<h3 align="left"><p th:text="#{header.bathproceduresapp}"> Regisztralt paciensek</p></h3>
+		
+		<!-- Info (button) -->
+		<div align="left">
+			<button type="button" class="btn btn-outline-primary rowsMargin rounded-circle" onclick="togleInfoTab();" th:title="#{button.showTips}">
+					<span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span>
+			</button>
+		</div>			
+		
+		<!-- Info (felugro ablak) -->
+		<div class="p-3 border rounded bg-light table" role="alert" style="display:none;" id="infoTab">
+			<label th:text="#{label.notice1}"></label>
+				<p>
+					<li th:text="#{label.notice2}"></li>
+					<li th:text="#{label.notice8}"></li>
+					<li th:text="#{label.notice3}"></li>
+				</p>
+		</div>
+	
+	
+		<!-- A kereses tabla ahova be kell irni az azonosito szamot -->
+		<div id = searchForm>
+			<form method="post" th:action="@{/registeredpatient/submit/}" action="#" align="center">
+				<table class="table table-bordered table-active" id="registeredPatientTable">
+					<tr>	
+						<td style="width: 25%">
+							<label th:text="#{registeredpatient.searchByIdNumber}">ID Number</label>
+						</td>
+							
+						<td style="width: 45%">
+							<input type="text" id="registeredPatientSearchByIdNumber" pattern="^[1-9]{1}[0-9]{9}$" maxlength="10" minlength="10" class="form-control patIdNumber" th:name="patIdNumber" th:placeholder="#{placeholder.searchValue}"/>&nbsp;<span id="errmsgPatIdNumber"></span>
+						</td>
+							
+						<td style="width: 30%">
+							<button type="submit" id="searchButton" class="btn btn-outline-primary col-md-4 form-row" th:text="#{button.search}" th:title="#{buttontitle.searchByPatIdNumber}">Button: Search</button>
+						</td>	
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+		
+		
+			<!-- Ha van paciens a keresett szuletesi szammal, akkor ide fogja kiirni ebbe a (fekete) tablaba, ha nincs akkor nem irja ki -->
+			<table id="patTable" class="table table-striped table-light" th:if="${patients!=null and !#lists.isEmpty(patients)}">
+				<thead class="table-primary">
+					<tr>
+						<th scope="col" th:text="#{patient.name}">First Name</th>
+						<th scope="col" th:text="#{patient.surname}">Last Name</th>
+						<th scope="col" th:text="#{patient.idNumber}">Id number</th>
+						<th scope="col" th:text="#{patient.telNumber}">Tel Number</th>
+						<th scope="col" th:text="#{patient.email}">E-mail</th>
+						<th scope="col" th:text="#{button.patientAddProcedures}">Add Procedures</th>
+						<th scope="col" th:text="#{button.patientData}">Patient Data</th>
+						<th scope="col" th:text="#{button.patientDelete}">Delete Patient</th>
+						<th scope="col" th:text="#{button.timetable}">Timetable</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="patient : ${patients}">
+						<td th:text="${patient.patName}">Name</td>
+						<td th:text="${patient.patSurname}">Surname</td>
+						<td th:text="${patient.patIdNumber}">Identification Number</td>
+						<td th:text="${patient.patTelNumber}">Tel Number</td>
+<!-- 						<td th:text="${patient.patEmail}">Email</td> -->
+						<td th:text="${patient.patEmail}">Email</td>
+						
+						
+						<!-- BUTTON: Add Procedures DISABLED if it is NURSE-->
+						<td th:if="${doctorData.docRole} == 'Nurse'">
+							<form target="_blank" action="#" th:action="@{/bathprocedures/}" method="get">
+								<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								<button type="submit" class="btn btn-outline-primary" th:title="#{button.patientAddProcedures}" disabled>
+									<span class="glyphicon glyphicon-list-alt" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+						<!-- BUTTON: Add Procedures ENABLED if it is NOT NURSE-->
+						<td th:unless="${doctorData.docRole} == 'Nurse'">
+							<form target="_blank" action="#" th:action="@{/bathprocedures/}" method="get">
+								<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								<button type="submit" class="btn btn-outline-primary" th:title="#{button.patientAddProcedures}">
+									<span class="glyphicon glyphicon-list-alt" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+						
+						<!-- BUTTON: Patient Data -->
+						<td>
+							<form target="_blank" action="#" th:action="@{/registeredpatient/data/}" method="get">
+								<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								<button type="submit" class="btn btn-outline-primary" th:title="#{button.patientData}">
+									<span class="glyphicon glyphicon-user" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+						
+						<!-- BUTTON: Delete Patient (Not real delete, just inactivated patient in database) -->
+						<!-- BUTTON: Delete is DISABLED if it is NURSE-->
+						<td th:if="${doctorData.docRole} == 'Nurse'">
+							<form action="#" th:action="@{/registeredpatient/}+${patient.patIdNumber}+'/'" method="post">
+								<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								<button type="submit" name="deactivatePatient" class="btn btn-outline-primary" th:title="#{button.patientDelete}" disabled>
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+						<!-- BUTTON: Delete Patient (Not real delete, just inactivated patient in database) -->
+						<!-- BUTTON: Delete is ENABLED if it is NURSE-->
+						<td th:unless="${doctorData.docRole} == 'Nurse'">
+							<form action="#" th:action="@{/registeredpatient/}+${patient.patIdNumber}+'/'" method="post" data-confirm="Biztosan törölni akarod a pácienst?" >
+								<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								<button type="submit" name="deactivatePatient" class="btn btn-outline-primary" th:title="#{button.patientDelete}">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+						
+						<!-- Timetable -->
+						<td>
+							<form action="#" th:action="@{/bathprocedures/timetable}" method="get">
+								<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								<button type="submit" class="btn btn-outline-primary" th:title="#{button.timetable}">
+									<span class="glyphicon glyphicon-calendar" aria-hidden="true"> </span>
+								</button>
+							</form>                                  
+						</td>
+						
+							
+					</tr>
+				</tbody>
+			</table>
+		
+		
+		<!-- Ha nem talalhato paciens az adott szammal az adatbazisban akkor ezt irja ki -->
+		<div id="patientNotFound" th:if="${patients==null and #lists.isEmpty(patients)}" align="center">	
+<!-- 			<table class="table table-striped table-info"> -->
+<!-- 				<tbody> -->
+<!-- 					<tr>  -->
+<!-- 						<td th:text="#{label.noPatientFound}"></td> -->
+<!-- 					</tr> -->
+<!-- 				</tbody> -->
+<!-- 			</table> -->
+			<br/>
+			<form target="_blank" action="#" th:action="@{/newpatient/}" method="get">
+				<button class="btn btn-outline-primary col-md-4" type="submit" th:text="#{button.newpatient}">BUTTON: Add new patient</button>									
+			</form> 
+		</div>
+		
+
+
+
+<!-- Javascript -->
+<script th:inline="javascript">
+
+/*
+	$(document).ready(function(){
+		var registeredPatientSearchByIdNumber = document.getElementById('registeredPatientSearchByIdNumber');
+		if (registeredPatientSearchByIdNumber.value == ""){
+		document.getElementById('patientNotFound').style.display = 'none';
+		}
+	});
+*/
+
+
+//-------------------------------------------------------------------------------------------------	
+	
+	// 		$(document).ready(function() {
+	// 		});
+
+//-------------------------------------------------------------------------------------------------
+
+	/*
+	$(document).on('click', ':not(form)[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	      e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+	
+	*/
+
+//-------------------------------------------------------------------------------------------------
+
+	//Submit delete button
+	$(document).on('submit', 'form[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	    	e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+
+//-------------------------------------------------------------------------------------------------
+
+/*
+$(document).on('input', 'select', function(e){
+    var msg = $(this).children('option:selected').data('confirm');
+    if(msg != undefined && !confirm(msg)){
+        $(this)[0].selectedIndex = 0;
+    }
+});
+*/	
+
+//-------------------------------------------------------------------------------------------------
+	
+	//Validation personal number
+	//Called when key is pressed in input text
+	$("#registeredPatientSearchByIdNumber").keypress(function (e){
+		//if the letter is not digit then display error and dont type anything
+		if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57 )){
+			//display error message
+			$("#errmsgPatIdNumber").html("Az azonosító szám egy 10 karakterból álló számkombináció!").show().fadeOut("slow");
+			return false;
+		}
+	});
+		
+//-------------------------------------------------------------------------------------------------
+	
+	//Validation registeredPatientSearchByIdNumber 
+	//Max number lenght is 10
+	document.getElementById("registeredPatientSearchByIdNumber").maxLength = "10";
+
+//-------------------------------------------------------------------------------------------------
+	
+
+
+
+</script>
+
+
+</div>

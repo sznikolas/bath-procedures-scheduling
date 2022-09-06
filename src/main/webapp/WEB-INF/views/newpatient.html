@@ -1,0 +1,144 @@
+
+
+<div class="container" th:fragment="content">
+	<div class="row justify-content-md-center">
+		<div class="col-sm-8 border border-primary shadow rounded pt-2">
+		
+			<!-- include image from static resources -->
+	        <div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+		
+			<form  method="post" th:action="@{/newpatient/submit/}" action="#">
+				
+				<h1 align="center"><p class="h3 mb-3 font-weight-normal" th:text="#{patient.registerText}"> Adding a new patient to the registry </p></h1>
+				<br/>
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      <label th:text="#{patient.name}">Name</label>
+				      <input type="text" class="form-control" minlength="3" maxlength="15" th:name="patName" th:placeholder="#{patient.name}" required>
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label th:text="#{patient.surname}">Surname</label>
+				      <input type="text" class="form-control" minlength="3" maxlength="15" th:name="patSurname" th:placeholder="#{patient.surname}" required>
+				    </div>
+				    
+				    <div class="form-group col-md-6">
+				      <label th:text="#{patient.idNumber}">ID number</label>
+				      <input type="text" class="form-control" th:name="patIdNumber" minlength="10" maxlength="10" id="patIdNumber" th:placeholder="#{patient.idNumber}" required>
+				    </div>
+				    
+				    <div class="form-group col-md-6" >
+				      <label th:text="#{patient.birthDate}">Birth Date</label>
+				      <input type="text" class="form-control" id="datepickerBirthDate" th:name="patBirthDate" th:placeholder="#{patient.birthDate}" required>
+				    </div>
+				    
+				    <div class="form-group col-md-6">
+				      <label for="inputEmail4" th:text="#{patient.email}">E-mail</label>
+				      <input type="email" class="form-control" th:name="patEmail" th:placeholder="#{patient.email}">
+				    </div>
+				    
+				    <div class="form-group col-md-6">
+				      <label th:text="#{patient.telNumber}">Telephone number</label>
+				      <input type="number" class="form-control" th:onKeyDown="limitText(this,10);" th:onKeyUp="limitText(this,10);" th:name="patTelNumber" id="patTelNumber" th:placeholder="#{placeholder.patTelNumber}">
+				    </div>
+				    
+				    <div class="form-group col-md-6">
+				      <label for="inputAddress" th:text="#{patient.residence}">Residence - Lakhely</label>
+				      <input type="text" class="form-control" minlength="3" maxlength="25" th:name="patResidence" th:placeholder="#{patient.residence}" required>
+				    </div>
+				    
+				    <div class="form-group col-md-6">
+				      <label for="inputAddress" th:text="#{patient.street}">Street</label>
+				      <input type="text" class="form-control" minlength="3" maxlength="25" th:name="patStreet" th:placeholder="#{patient.street}" required>
+				    </div>
+		
+					<div class="form-row col-md-12">
+					    <div class="form-group col-md-4">
+					      <label for="inputAddress" th:text="#{patient.houseNumber}">House Number</label>
+					      <input type="number" oninput="maxLengthCheck(this)" maxlength="7" class="form-control" th:name="patHouseNumber" id="patHouseNumber" th:placeholder="#{patient.houseNumber}" required>
+					    </div>
+					    
+					    <div class="form-group col-md-4">
+					      <label for="inputAddress" th:text="#{patient.zipCode}">Zip Code</label>
+					      <input type="number" class="form-control" th:onKeyDown="limitText(this,5);" th:onKeyUp="limitText(this,5);" th:name="patZipCode" th:placeholder="#{patient.zipCode}" required>
+					    </div>
+					    
+					    <div class="form-group col-md-4">
+					      <label th:text="#{patient.mobility}">Mobility</label>
+					      	<select type="text" class="form-control" th:name="patMobility" required>
+									<option value="Normális" th:text="#{patMobility.normal}" selected>Normal</option>
+									<option value="Korlátozott" th:text="#{patMobility.limited}">Limited</option>
+							</select>
+					    </div>
+			 		 </div>	    
+
+				    <div class="form-group col-md-12">
+				      <label th:text="#{patient.comment}">Comment</label>
+				      <textarea type="text" class="form-control" th:name="patComment" id="sessionNum" maxlength="1000" th:placeholder="#{patient.comment}"> </textarea>
+				      <font size="1"> <label th:text="#{patient.numberOfAllowedCharacters}"> </label> <span id="sessionNum_counter">1000</span> </font> 
+				    </div>
+				    
+		    	</div>
+		    	<div align="center">
+		  			<button class="btn btn-outline-primary col-md-2" type="submit" th:text="#{button.save}">Save</button>
+		  		</div>
+			</form>
+		</div>		
+	</div>
+	
+	
+<!-- Javascript -->
+<script th:inline="javascript">
+
+	//Prints the length of the allowed size of characters in "patient comment"
+	$(document).ready(function(){
+		var maxChars = $("#sessionNum");
+		var max_length = maxChars.attr('maxlength');
+		if (max_length > 0) {
+		    maxChars.bind('keyup', function(e){
+		        length = new Number(maxChars.val().length);
+		        counter = max_length-length;
+		        $("#sessionNum_counter").text(counter);
+		    });
+		}
+		});
+
+//-------------------------------------------------------------------------------------------------
+	
+	//Validation personal number
+	//Called when key is pressed in input text
+	$("#patIdNumber").keypress(function (e){
+		//if the letter is not digit then display error and dont type anything
+		if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57 )){
+			//display error message
+			//$("#errmsgPatIdNumber").html("Az azonosító szám egy 10 karakterból álló számkombináció!").show().fadeOut("slow");
+			return false;
+		}
+	});
+	
+//-------------------------------------------------------------------------------------------------	
+
+	//Validation patIdNumber 
+	//Max number lenght is 10
+	document.getElementById("patIdNumber").maxLength = "10";
+	
+//-------------------------------------------------------------------------------------------------	
+
+	//Allowed limit of numbers 
+	//th:onKeyDown="limitText(this,6);" th:onKeyUp="limitText(this,6);"
+	function limitText(limitField, limitNum) {
+	    if (limitField.value.length > limitNum) {
+	        limitField.value = limitField.value.substring(0, limitNum);
+	    }
+	}
+
+//-------------------------------------------------------------------------------------------------	
+
+
+		
+</script>
+	
+	
+	
+	
+			
+</div>

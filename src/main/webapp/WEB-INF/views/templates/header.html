@@ -1,0 +1,36 @@
+
+
+<header th:fragment="header">
+	
+	<!-- IF User is Looged IN -->
+	<div sec:authorize="isAuthenticated()" class="tab">
+
+		<!-- Button in header -->
+		<a class="navbar-brand" th:href="@{/userprofile/}" th:text="#{header.userprofile}" > User profile </a>
+		<a class="navbar-brand" th:href="@{/statistics/}" th:text="#{header.statistics}" > Statistics </a>
+		<a class="navbar-brand" th:href="@{/registeredpatient}" th:text="#{header.registeredPatient}" > Search registered patient </a>
+		<a class="navbar-brand" th:href="@{/compofproctimetable}" th:text="#{header.scheduleProcTimes}" > Scheduling Procedures Time </a>
+		<a class="navbar-brand" th:href="@{/proceduresdata}" th:text="#{procedures.proceduresData}" > Procedures Data </a>
+		<a class="navbar-brand" th:href="@{/balneumthermalmap}" th:text="#{header.balneumthermalmap}" > Balneum Thermal Map </a>
+
+		
+		<!-- Language chooser in header -->
+		<div class="header_right_panel">
+			<a th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+			th:href="${urlBuilder.replaceQueryParam('lang', 'hu').toUriString()}"
+			th:text="#{lang.hu}"></a>
+			
+			<a th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+			th:href="${urlBuilder.replaceQueryParam('lang', 'en').toUriString()}"
+			th:text="#{lang.en}"></a>
+		</div>
+	</div>
+	
+	<!-- IF User is Looged OUT -->
+	<div sec:authorize="!isAuthenticated()" >
+		<h2 th:text="#{header.bathprocedures}" align="center"> Bathprocedures </h2>
+		
+	</div>
+	
+	
+</header>

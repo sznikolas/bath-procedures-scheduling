@@ -1,0 +1,206 @@
+<!-- registeredpatientdata.html -->
+	
+	
+	<!-- Regisztralt paciensek adatai es a paciens altal eddig elvegzett furdoprocedurak -->
+	<div class="container-fluid" th:fragment="content" align="left" style="width:80%">
+		<div class="row justify-content-md-center" th:each="patient : ${patients}">
+			<div class="col-sm-8 border border-primary shadow rounded pt-2">
+			
+				<!-- include image from static resources -->
+	        	<div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+	        	
+				<h1 align="center"><p th:text="#{procedures.patientData}"> Paciens adatai</p></h1>
+					<br/>
+					<div class="form-row">
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.name}">Name</label>
+						      <input type="text" class="form-control" th:name="patName" th:value="${patient.patName}" th:placeholder="#{patient.surname}" readonly>
+						    </div>
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.surname}">Surname</label>
+						      <input type="text" class="form-control" th:name="patSurname" th:value="${patient.patSurname}" th:placeholder="#{patient.surname}" readonly>
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label th:text="#{patient.idNumber}">ID number</label>
+						      <input type="number" class="form-control" th:name="patIdNumber" th:value="${patient.patIdNumber}" th:placeholder="#{patient.idNumber}" readonly>
+						    </div>
+						    
+						     <div class="form-group col-md-6">
+						      <label th:text="#{patient.birthDate}">Birth Date</label>
+						      <input type="text" class="form-control" th:name="patBirthDate" th:value="${patient.patBirthDate}" th:placeholder="#{patient.birthDate}" readonly>
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label for="inputEmail4" th:text="#{patient.email}">E-mail</label>
+						      <input type="email" class="form-control" th:name="patEmail" th:value="${patient.patEmail}" th:placeholder="#{patient.email}" readonly>
+						    </div>
+						    
+						     <div class="form-group col-md-6">
+						      <label th:text="#{patient.telNumber}">Telephone number</label>
+						      <input type="text" class="form-control" th:name="patTelNumber" th:value="${patient.patTelNumber}" th:placeholder="#{patient.telNumber}" readonly>
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label for="inputAddress" th:text="#{patient.residence}">Residence - Lakhely</label>
+						      <input type="text" class="form-control" th:name="patResidence" th:value="${patient.patResidence}" th:placeholder="#{patient.residence}" readonly>
+						    </div>
+						    
+						    <div class="form-group col-md-6">
+						      <label for="inputAddress" th:text="#{patient.street}">Street</label>
+						      <input type="text" class="form-control" th:name="patStreet" th:value="${patient.patStreet}" th:placeholder="#{patient.street}" readonly>
+						    </div>
+
+						    <div class="form-row col-md-12">
+							    <div class="form-group col-md-4">
+							      <label for="inputAddress" th:text="#{patient.houseNumber}">House Number</label>
+							      <input type="text" class="form-control" th:name="patHouseNumber" th:value="${patient.patHouseNumber}" th:placeholder="#{patient.houseNumber}" readonly>
+							    </div>
+							    
+							    <div class="form-group col-md-4">
+							      <label for="inputAddress" th:text="#{patient.zipCode}">Zip Code</label>
+							      <input type="text" class="form-control" th:name="patZipCode" th:value="${patient.patZipCode}" th:placeholder="#{patient.zipCode}" readonly>
+							    </div>
+					
+							     <div class="form-group col-md-4">
+							      	<label th:text="#{patient.mobility}">Mobility</label>
+							      	<input type="text" class="form-control" th:name="patMobility" th:value="${patient.patMobility}" readonly>		
+								</div>
+						    </div>	 
+
+						    <div class="form-group col-md-12">
+						      <label th:text="#{patient.comment}">Comment</label>
+						      <input type="text" class="form-control" th:name="patComment" rows="5" th:value="${patient.patComment}" th:placeholder="#{patient.comment}" readonly> 
+						    </div>
+					</div>
+					
+					<br/>
+
+						<div class="row justify-content-md-center" align="center">
+							<!-- BUTTON: edit -->	
+							<div class="btn-form-row col-md-4">
+								<form target="_blank" action="#" th:action="@{'/registeredpatient/data/' + ${patient.patIdNumber}}" method="get">
+									<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								   	<button th:if="${docRole} == 'Nurse'" type="submit" class="btn btn-outline-primary col-md-8" id="buttonModifyId" th:text="#{button.modify}" disabled> Button: Modify </button>
+								   	<button th:unless="${docRole} == 'Nurse'" type="submit" class="btn btn-outline-primary col-md-8" id="buttonModifyId" th:text="#{button.modify}"> Button: Modify </button>
+								</form>
+							</div>
+							<!-- BUTTON: delete -->
+							<div class="btn-form-row col-md-4">
+								<form action="#" th:action="@{'/registeredpatient/delete/' + ${patient.patIdNumber}}" method="post" data-confirm="Biztosan törölni akarod a pácienst?">
+								   	<input hidden type="text" name="patIdNumber" th:value="${patient.patIdNumber}"/>
+								   	<button th:if="${docRole} == 'Nurse'" type="submit" name = "deactivatePatient" class="btn btn-outline-primary col-md-8" id="buttonDeleteId" th:text="#{button.delete}" disabled> Button: Delete </button>
+								   	<button th:unless="${docRole} == 'Nurse'" type="submit" name = "deactivatePatient" class="btn btn-outline-primary col-md-8" id="buttonDeleteId" th:text="#{button.delete}" > Button: Delete </button>
+								</form>
+							</div>
+						</div>
+					<br/>	
+			</div>
+		</div>
+
+		<br/>
+		<br/>  
+		
+		<!-- Statistics of completed bath procedures by Patient-->
+		<div class="row justify-content-md-center">
+			<div class="col-sm-8 border border-primary shadow rounded pt-2">
+				<h2 align="center" class="boldthick"><p th:text="#{procedures.absolvedProcedures}"> Paciens altal eddig elvegzett furdoprocedurak</p></h2>
+
+				<div align="center">	
+					<table class="table table-striped table-sm table-bordered table-light" style="width:70%" align="center">
+						<col width="75%">
+			  			<col width="25%">
+						
+						
+						<tr align="left" th:if="${medicalMassage!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.medicalMassage}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${medicalMassage}">medicalMassage</td>
+						</tr>
+						
+						<tr align="left" th:if="${mudPacks!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.mudPacks}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${mudPacks}">mudPacks</td>
+						</tr>
+						
+						<tr align="left" th:if="${carbonedBath!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.carbonedBath}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${carbonedBath}">carbonedBath</td>
+						</tr>
+						
+						<tr align="left" th:if="${thermalBath!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.thermalBath}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${thermalBath}">thermalBath</td>
+						</tr>
+			
+						<tr align="left" th:if="${spaWithMedicinalWater!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.spaWithMedicinalWater}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${spaWithMedicinalWater}">spaWithMedicinalWater</td>
+						</tr>
+						
+						<tr align="left" th:if="${weightBath!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.weightBath}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${weightBath}">weightBath</td>
+						</tr>
+						
+						<tr align="left" th:if="${underwaterJetMassage!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.underwaterJetMassage}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${underwaterJetMassage}">underwaterJetMassage</td>
+						</tr>
+						
+						<tr align="left" th:if="${compartmentGalvanized!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.compartmentGalvanized}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${compartmentGalvanized}">compartmentGalvanized</td>
+						</tr>
+						
+						<tr align="left" th:if="${phyaction!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.phyaction}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${phyaction}">phyaction</td>
+						</tr>
+						
+						<tr align="left" th:if="${interference!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.interference}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${interference}">interference</td>
+						</tr>
+
+						<tr align="left" th:if="${iontophoresis!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.iontophoresis}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${iontophoresis}">iontophoresis</td>
+						</tr>
+
+						<tr align="left" th:if="${bioptron!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.bioptron}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${bioptron}">bioptron</td>
+						</tr>
+
+						<tr align="left" th:if="${saltCave!=0}">
+				  			<th class="column boldthick" th:text="#{proceduresName.saltCave}"></th>
+				  			<td class="column" style="text-align: center;" th:text="${saltCave}">saltCave</td>
+						</tr>
+					</table>
+				</div>		
+			</div>
+		</div>
+	
+	
+	
+	
+		    
+<!-- Javascript -->
+<script th:inline="javascript">
+
+
+$(document).on('submit', 'form[data-confirm]', function(e){
+    if(!confirm($(this).data('confirm'))){
+    	e.stopImmediatePropagation();
+      e.preventDefault();
+		}
+});
+		
+</script>	    
+</div>
+	
+	
+	
+	
+	
+	

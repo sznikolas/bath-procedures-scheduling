@@ -1,0 +1,72 @@
+<!-- login.html -->
+<!-- Bejelentkezo oldal -->
+
+<div class="form-center container" th:fragment="content">
+	<div class="row justify-content-md-center">
+		<div class="col-sm-4 border border-primary shadow rounded pt-2">
+			<!-- include image from static resources -->
+	        <div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+			
+			<form name="login" th:action="@{/login}" th:object="${loginForm}" method="post" class="form-signin form-center">
+		
+				<h1 class="form-center h3 mb-3 font-weight-normal" th:text="#{login.pleaseSingIn}"> Please sign in </h1>
+  				
+  				<br/>
+  		
+  				<div th:if="${param.error}">
+                    <div class="alert alert-danger" th:text="#{login.alertInvalid}">
+                        Invalid username or password
+                    </div>
+                </div>
+                
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info" th:text="#{login.alertLogout}">
+                        You have been logged out
+                    </div>
+                </div>
+                
+                <div th:if="${param.succesfulRegistration}">
+                    <div class="alert alert-success" th:text="#{login.alertRegistrationSuccess}">
+                        Successful registration!
+                    </div>
+                </div>
+  		
+  				<div class="form-group">
+  					<label for="username" class="sr-only">Username</label>
+  					<input type="text" id="username" name="username" class="form-control" th:placeholder="#{login.loginName}" autofocus="autofocus" autocomplete="off" required="true" />
+  				</div>
+                
+                <div class="form-group">
+ 					<label for="password" class="sr-only">Password</label>
+  					<input type="password" id="password" name="password" class="form-control" th:placeholder="#{login.password}" required="true" />
+ 				</div>
+ 				
+<!--  				<div class="checkbox"> -->
+<!--  					<label> -->
+<!--  						<input id="remember-me" name="remember-me" type="checkbox" th:text="#{login.rememberMe}"/> -->
+<!--  					</label> -->
+<!--   				</div> -->
+                
+                <div class="form-group">
+                 	<input type="submit" name="login-submit" id="login-submit" class="btn btn-block btn-outline-primary" th:value="#{button.login}"> 
+				</div>	
+				
+<!-- 				<br/> -->
+				
+<!-- 				<div> -->
+<!--             		Forgot password -->
+<!--             		<small> <a href="" th:text="#{login.forgotPassword}">Forgot password?</a> </small> -->
+<!--         		</div> -->
+				
+			</form>
+			
+			<br/>
+			
+				<!-- eliranyit a regisztracios feluletre -->
+				<p>
+					<small> <a href="/newuseraccountregistration" th:text="#{button.newUserAccountRegistration}">New user account registration</a> </small>
+				</p>
+		</div>
+	</div>
+	
+</div>

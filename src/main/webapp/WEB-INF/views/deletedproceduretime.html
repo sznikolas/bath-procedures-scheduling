@@ -1,0 +1,26 @@
+<!-- deletedproceduretime.html -->
+<!-- Procedurea idopont kitorlese megerosito ablak -->
+	
+	
+<div class="container-fluid" th:fragment="content" align="left" style="width:80%" >
+	<div class="row justify-content-md-center">
+		<div class="col-sm-8 border border-primary shadow rounded pt-2">
+			<!-- include image from static resources -->
+			<div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+		
+			</br>
+		
+			<h2 style="color: red; font-weight: bold;" align="Center"><p th:text="#{procedures.proceduresTimeDeleted}">Procedures time deleted</p></h2>
+		
+			</br>
+		
+			<div align="center">
+				<a th:href="@{/compofproctimetable}" th:text="#{procedures.backToAddProcedureTimes}">Back to add procedure times</a>
+			</div> 
+			
+			</br>
+			</br>
+		
+		</div>
+	</div> 
+</div>

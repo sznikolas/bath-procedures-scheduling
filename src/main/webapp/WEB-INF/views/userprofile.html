@@ -1,0 +1,100 @@
+<!-- userprofile.html -->
+<!-- Felhasznaloi profile a doktor es a nover adatai plusz adatok modositasa -->
+	
+	
+<div class="container-fluid" th:fragment="content" align="left" style="width:80%" >
+		<div class="row justify-content-md-center">
+			<div class="col-sm-8 border border-primary shadow rounded pt-2" th:each="userData : ${user}">
+				<!-- include image from static resources -->
+	        	<div class="text-center"><img th:src="@{/img/bathlogo.png}" style="width:52px;height:80px;"  alt="Logo"  class=" p-1"></div>
+				
+				<h1 align="center"><p th:text="#{user.userData}"> Felhasznalo adatai</p></h1>
+					<br/>
+					<div class="form-row" >
+						<div class="form-group col-md-6">
+							<label th:text="#{user.name}">Name</label>
+							<input type="text" class="form-control" th:name="docName" th:value="${userData.docName}" th:placeholder="#{user.name}" readonly>
+						</div>
+					
+						<div class="form-group col-md-6">
+							<label th:text="#{user.surname}">Surname</label>
+							<input type="text" class="form-control" th:name="docSurname" th:value="${userData.docSurname}" th:placeholder="#{user.surname}" readonly>
+						</div>
+						    
+						<div class="form-group col-md-6">
+							<label th:text="#{user.idNumber}">ID number</label>
+							<input type="number" class="form-control" th:name="idDoctor" th:value="${userData.idDoctor}" th:placeholder="#{user.idNumber}" readonly>
+						</div>
+						    
+						<div class="form-group col-md-6">
+							<label th:text="#{user.role}">User Role (doctor or nurse)</label>
+							<input type="text" class="form-control" th:name="docRole" th:value="${userData.docRole}" th:placeholder="#{user.role}" readonly>
+						</div>
+					
+						<div class="form-group col-md-6">
+							<label th:text="#{user.telNumber}">Tel number</label>
+							<input type="text" class="form-control" th:name="docTelNumber" th:value="${userData.docTelNumber}" th:placeholder="#{user.telNumber}" readonly>
+						</div>
+				
+						<div class="form-group col-md-6">
+							<label th:text="#{user.email}">Email</label>
+							<input type="text" class="form-control" th:name="docEmail" th:value="${userData.docEmail}" th:placeholder="#{user.email}" readonly>
+						</div>
+						
+					</div>
+					
+					<br/>
+
+					<div class="row justify-content-md-center" align="center">	
+						<!-- BUTTON: edit -->
+						<div class="btn-form-row col-md-4">
+							<form target="_blank" action="#" th:action="@{'/edit/' + ${userData.idDoctor}}" method="get">
+							   	<button type="submit" class="btn btn-outline-primary col-md-8" id="buttonModifyId" th:text="#{button.modify}"> Button: Modify </button>
+							</form>
+						</div>
+						<!-- BUTTON: delete -->
+<!-- 						<div class="btn-form-row col-md-4"> -->
+<!-- 							   	<form action="#" th:action="@{'/delete/' + ${userData.idDoctor}}" method="get" data-confirm="Biztosan törölni akarod a felhasználói fiókod?"> -->
+<!-- 							   		<button type="submit" class="btn btn-outline-primary col-md-8" id="buttonDeleteId" th:text="#{button.delete}"> Button: Delete </button> -->
+<!-- 								</form> -->
+<!-- 						</div> -->
+					</div>	
+					<br/>
+					
+					<!-- Eliranyit az adminisztracios feluletre -->
+					<p th:if="${userData.docEmail == 'admin@bathprocedures.com'}" align="center">
+						<small> <a href="/adminterface" th:text="#{button.adminInterface}">Admin interface</a> </small>
+					</p>
+					
+					<br/>
+			</div>
+		</div>
+	
+
+<!-- Javascript -->
+<script th:inline="javascript">
+	
+	
+	//data-confirm="Biztosan törölni akarod a felhasználói fiókod?"
+	$(document).on('submit', 'form[data-confirm]', function(e){
+	    if(!confirm($(this).data('confirm'))){
+	    	e.stopImmediatePropagation();
+	      e.preventDefault();
+			}
+	});
+
+	
+</script>	
+
+
+
+
+
+	    
+</div>
+	
+	
+	
+	
+	
+	

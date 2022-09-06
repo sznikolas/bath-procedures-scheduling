@@ -1,0 +1,8 @@
+<!-- access-denied.html -->
+
+<div class="container" th:fragment="content">
+	<form  method="post" th:action="@{/error//access-denied/}" action="#">
+    		<h1>Access denied - Nincs jogosultságod látni</h1>
+    		<p><a href="/registeredpatient" th:href="@{/registeredpatient}">Vissza a regisztrált páciensek kereséséhez</a></p>
+    </form>
+</div>
