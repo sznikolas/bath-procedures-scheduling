@@ -1,7 +1,7 @@
 # Bath procedures scheduling
 
-This project can generate a timetable for patients in a bath complexum. The doctors and nurses can registrate in the system and can prescribe the treatments for their patients. 
-After they selected the treatments the system will automaticaly generate a timetable considering the lenght and the numbers of the treatments, the available places. 
+This project can **generate** a **timetable** for patients in a **bath complexum**. The **doctors** and **nurses** can registrate in the system and can **prescribe** the **treatments** for their patients. 
+After they selected the treatments the system will **automaticaly generate** a timetable considering the lenght and the numbers of the treatments, the available places. 
 If the time is not acceptable for the patients we can change it manually. 
 After the timetable is looking good we can print it and give it to the patient. The system save the used treatments and we can see a simlpy statistics about the procedures and about the patients treatments. 
 The doctors have more access to the system and they can record the patient's details and complaints with comments.
@@ -29,4 +29,6 @@ The doctors have more access to the system and they can record the patient's det
 ### Map of the bath complex
 ![Térkép](https://github.com/sznikolas/bath-procedures-scheduling/assets/48528872/2564e282-50b7-4ab6-b2d0-da04e91e1d4d)
 
-## The source code is outdated and needs updating, and we also need to add the appointment times for the treatments.
+# Additional information about the project
+
+The source code is outdated and needs updating (+ refactoring), and we also need to add the appointment times for the treatments. Hungarian language in many places in the code.
